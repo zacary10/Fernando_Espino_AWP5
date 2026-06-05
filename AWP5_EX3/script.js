@@ -3,6 +3,11 @@ const seats = document.querySelectorAll('.row .seat:not(.occupied)');
 const count = document.getElementById('count');
 const total = document.getElementById('total');
 const movieSelect = document.getElementById('movie');
+const currencySelect = document.getElementById('currency');
+const currencySymbol = document.getElementById('currency-symbol');
+
+let currentRate = 1;
+let currentCurrency = 'USD';
 
 populateUI();
 
@@ -23,9 +28,9 @@ localStorage.setItem('selectedSeats', JSON.stringify(seatsIndex));
 
 
   const selectedSeatsCount = selectedSeats.length;
-
   count.innerText = selectedSeatsCount;
-  total.innerText = selectedSeatsCount * ticketPrice;
+  total.innerText = (selectedSeatsCount * ticketPrice).toFixed(2);
+  currencySymbol.innerText = currentCurrency;
 }
 
 function populateUI() {
@@ -47,6 +52,27 @@ if (selectedMovieIndex !== null) {
 
 }
 
+function convertCurrency(currency) {
+  fetch('https://api.exchangerate-api.com/v4/latest/USD')
+    .then(res => res.json())
+    .then(data => {
+      currentRate = data.rates[currency];
+      currentCurrency = currency;
+      updateMoviePrices();
+      updateSelectedCount();
+    });
+}
+
+function updateMoviePrices() {
+  const options = movieSelect.querySelectorAll('option');
+  options.forEach(option => {
+    const basePrice = option.getAttribute('data-base-price');
+    const converted = (basePrice * currentRate).toFixed(2);
+    option.value = converted;
+    option.textContent = `${option.getAttribute('data-title')} (${currentCurrency} ${converted})`;
+  });
+  ticketPrice = +movieSelect.value;
+}
 
 movieSelect.addEventListener('change', e => {
   ticketPrice = +e.target.value;
@@ -54,6 +80,9 @@ movieSelect.addEventListener('change', e => {
   updateSelectedCount();
 });
 
+currencySelect.addEventListener('change', e => {
+  convertCurrency(e.target.value);
+});
 
 container.addEventListener('click', (e) => {
   if (

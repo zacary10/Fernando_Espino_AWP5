@@ -8,13 +8,27 @@
 </head>
 <body>
   <div class="movie-container">
+    <div class="currency-container">
+  <label>Pick a currency</label>
+  <select id="currency">
+    <option value="USD">USD</option>
+    <option value="EUR">EUR</option>
+    <option value="GBP">GBP</option>
+    <option value="JPY">JPY</option>
+    <option value="CAD">CAD</option>
+    <option value="AUD">AUD</option>
+    <option value="CHF">CHF</option>
+    <option value="CNY">CNY</option>
+    <option value="MXN">MXN</option>
+    <option value="PEN">PEN</option>
+  </select>
+</div>
     <label>Pick a movie</label>
     <select id="movie">
-    <option value="10">Avengers: Endgame ($10)</option>
-    <option value="12">Joker ($12)</option>
-    <option value="8">Toy Story 4 ($8)</option>
-    <option value="9">The Lion King ($9)</option>
-
+    <option value="10" data-base-price="10" data-title="Avengers: Endgame">Avengers: Endgame (USD 10.00)</option>
+    <option value="12" data-base-price="12" data-title="Joker">Joker (USD 12.00)</option>
+    <option value="8"  data-base-price="8"  data-title="Toy Story 4">Toy Story 4 (USD 8.00)</option>
+    <option value="9"  data-base-price="9"  data-title="The Lion King">The Lion King (USD 9.00)</option>
     </select>
   </div>
 
@@ -99,7 +113,8 @@
 </div>
 
 <p class="text">
-  You have selected <span id="count">0</span> seats for a price of $
+  You have selected <span id="count">0</span> seats for a price of
+  <span id="currency-symbol">USD</span>
   <span id="total">0</span>
 </p>
 
