@@ -97,3 +97,10 @@ button:focus {
   color: var(--primary-color);
   margin-top: 10px;
 }
+
+#error-msg {
+  display: none;
+  text-align: center;
+  color: red;
+  margin-top: 10px;
+}

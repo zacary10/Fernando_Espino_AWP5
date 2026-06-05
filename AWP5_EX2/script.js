@@ -5,6 +5,7 @@ const amountEl_two = document.getElementById('amount-two');
 const rateEl = document.getElementById('rate');
 const swap = document.getElementById('swap');
 const loadingEl = document.getElementById('loading');
+const errorEl = document.getElementById('error-msg');
 
 function caculate() {
   const currency_one = currencyEl_one.value;
@@ -12,15 +13,18 @@ function caculate() {
 
   loadingEl.style.display = 'block';
 
-  fetch(`https://api.exchangerate-api.com/v4/latest/${currency_one}`)
+fetch(`https://api.exchangerate-api.com/v4/latest/${currency_one}`)
   .then(res => res.json())
   .then(data => {
-   
     const rate = data.rates[currency_two];
-
     rateEl.innerText = `1 ${currency_one} = ${rate} ${currency_two}`;
     amountEl_two.value = (amountEl_one.value * rate).toFixed(2);
     loadingEl.style.display = 'none';
+  })
+  .catch(error => {
+    loadingEl.style.display = 'none';
+    errorEl.style.display = 'block';
+    errorEl.innerText = 'Error al conectar con la API. Comprobar la connexion.';
   });
 
 }
