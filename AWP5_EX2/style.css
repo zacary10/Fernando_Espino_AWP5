@@ -90,3 +90,10 @@ button:focus {
     width: 200px;
   }
 }
+
+#loading {
+  display: none;
+  text-align: center;
+  color: var(--primary-color);
+  margin-top: 10px;
+}
