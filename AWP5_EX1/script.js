@@ -3,6 +3,8 @@ const username = document.getElementById('username');
 const email = document.getElementById('email');
 const password = document.getElementById('password');
 const password2 = document.getElementById('password2');
+const age = document.getElementById('age');
+
 
 
 function showError(input, message) {
@@ -64,13 +66,23 @@ function getFieldName(input){
     return input.id.charAt(0).toUpperCase() + input.id.slice(1) ;
 }
 
+function checkAge(input) {
+    if (input.value < 0 || input.value >= 1000) {
+        showError(input, 'Age must be between 0 and 999');
+    } else {
+        showSuccess(input);
+    }
+}
+
+
 form.addEventListener('submit', function(e) {
     e.preventDefault();
 
-  checkRequired ([username, email, password, password2])
+  checkRequired ([username, email, password, password2, age])
   checkLength (username, 3, 15);
   checkLength (password, 6, 25);
   checkEmail(email);
   checkPasswordsMatch(password, password2);
+  checkAge(age);
 
 });
