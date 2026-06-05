@@ -10,6 +10,9 @@ const errorEl = document.getElementById('error-msg');
 function caculate() {
   const currency_one = currencyEl_one.value;
   const currency_two = currencyEl_two.value;
+  if (amountEl_one.value < 0) amountEl_one.value = 0;
+  if (amountEl_two.value < 0) amountEl_two.value = 0;
+
 
   loadingEl.style.display = 'block';
 
